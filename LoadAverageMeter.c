@@ -28,11 +28,11 @@ static void LoadAverageMeter_setValues(Meter* this, char* buffer, int size) {
 static void LoadAverageMeter_display(Object* cast, RichString* out) {
    Meter* this = (Meter*)cast;
    char buffer[20];
-   sprintf(buffer, "%.2f ", this->values[2]);
+   sprintf(buffer, "%.2f %.f%% ", this->values[2], (float)(this->values[0] / this->pl->cpuCount * 100.0));
    RichString_write(out, CRT_colors[LOAD_AVERAGE_FIFTEEN], buffer);
-   sprintf(buffer, "%.2f ", this->values[1]);
+   sprintf(buffer, "%.2f %.f%% ", this->values[1], (float)(this->values[0] / this->pl->cpuCount * 100.0));
    RichString_append(out, CRT_colors[LOAD_AVERAGE_FIVE], buffer);
-   sprintf(buffer, "%.2f ", this->values[0]);
+   sprintf(buffer, "%.2f %.f%%", this->values[0], (float)(this->values[0] / this->pl->cpuCount * 100.0));
    RichString_append(out, CRT_colors[LOAD_AVERAGE_ONE], buffer);
 }
 
@@ -48,7 +48,7 @@ static void LoadMeter_setValues(Meter* this, char* buffer, int size) {
 static void LoadMeter_display(Object* cast, RichString* out) {
    Meter* this = (Meter*)cast;
    char buffer[20];
-   sprintf(buffer, "%.2f ", ((Meter*)this)->values[0]);
+   sprintf(buffer, "%.2f", ((Meter*)this)->values[0]);
    RichString_write(out, CRT_colors[LOAD], buffer);
 }
 
